@@ -8,7 +8,7 @@ public class TestVehicule {
         /**
          * Test les classes Vehicule, Voiture et Avion
          */
-        int ANNEE_ACTUELLE = 2050;
+        int ANNEE_ACTUELLE = 2020;
         Voiture[] garage = new Voiture[4];
         Avion[] hangar = new Avion[2];
 

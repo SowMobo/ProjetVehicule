@@ -25,26 +25,30 @@ public class Voiture extends Vehicule {
     @Override
     public void calculPrix(int anneeCourant) {
         int anciennete = anneeCourant - this.getDateAchat();
-        double coefAnciennete = anciennete * 0.01;
+        double coefAnciennete = anciennete * 0.02;
         double coefKilometrage = (int) this.kilometrage / 10000 * 0.05;
 
+        double decote = (coefAnciennete + coefKilometrage) * this.getPrixAchat();
+
         double coefMarqueMoinsFiable;
-        if (this.getMarque().equals("Renault") | this.getMarque().equals("Fiat")) {
+        if (this.getMarque().equals("Renault") || this.getMarque().equals("Fiat")) {
             coefMarqueMoinsFiable = 0.1;
         } else {
             coefMarqueMoinsFiable = 0;
         }
+
+        decote = decote + decote * coefMarqueMoinsFiable;
+
         double coefMarqueLuxe;
 
-        if (this.getMarque().equals("Ferrari") | this.getMarque().equals("Porsche")) {
+        if (this.getMarque().equals("Ferrari") || this.getMarque().equals("Porsche")) {
             coefMarqueLuxe = 0.2;
         } else {
             coefMarqueLuxe = 0;
         }
+        decote = decote  - decote * coefMarqueLuxe;
 
-        double reductions = (coefAnciennete + coefKilometrage + coefMarqueMoinsFiable +
-                coefMarqueLuxe) * this.getPrixAchat();
-        double prix = this.getPrixAchat() - reductions;
+        double prix = this.getPrixAchat() - decote;
         prix = prix > 0.0 ? prix : 0.0;
         this.prixCourant = prix;
     }
